@@ -28,10 +28,21 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         playRound(button.id, getComputerChoice());
+
+        // checking the current total score for players
+        if (humanScore === 5) {
+            finalMessage.textContent = "You are the ultimate champion!";
+            resultsContainer.appendChild(finalMessage);
+        } else if (computerScore === 5) {
+            finalMessage.textContent = "Well, Booohoo! You just got mogged!";
+            resultsContainer.appendChild(finalMessage);
+        }
     });
 });
 
+// dom shenanigans
 const resultsContainer = document.querySelector('.results');
+let finalMessage = document.createElement('h3');
 
 const message = document.createElement('div');
 message.textContent = "No game in session";
@@ -45,7 +56,7 @@ const botScore = document.createElement('div');
 botScore.textContent = "Computer: 0";
 resultsContainer.appendChild(botScore);
 
-// gameplay logic
+// gameplay logic and more dom shenanigans
 function playRound(humanChoice, computerChoice) {
 
     humanChoice = humanChoice.toLowerCase();
@@ -89,30 +100,3 @@ function playRound(humanChoice, computerChoice) {
         message.textContent = "This round is a draw!";
     }
 }
-
-// // simulating a game session of five rounds
-// function playGame () {
-//     let humanSelection = '';
-//     let computerSelection = '';
-
-//     for (let i = 0; i < 5; i++) {
-//         // new choice for new round
-//         humanSelection = getHumanChoice();
-//         computerSelection = getComputerChoice();
-
-//         playRound(humanSelection, computerSelection);
-//         console.log(humanScore);
-//         console.log(computerScore);
-//     }
-
-//     // declare winner
-//     if (humanScore > computerScore) {
-//         console.log("You're the ultimate champion!");
-//     } else if (computerScore > humanScore) {
-//         console.log("You just lost the championship, champ!");
-//     } else {
-//         console.log("This ended in a brutal draw!");
-//     }
-// }
-
-// playGame();
